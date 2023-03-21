@@ -17,7 +17,7 @@ const server = createServer((req, res) => {
     //console.log(requestURL);
 
     const decodedParams = decodeParams(new URLSearchParams(requestURL.path));
-    const { search, location, country} = decodedParams;
+    const { search, location, country = 'in'} = decodedParams;
 
     // const targetURL = `${config.BASE_URL}/${country.toLowerCase()}/${config.BASE_PARAMS}&app_id=${config.API_ID}&app_key=${config.API_KEY}&results_per_page=20&what=${search}&where=${location}&content-type=application/json`;
     const targetURL = `${config.BASE_URL}/${country.toLowerCase()}/${config.BASE_PARAMS}&app_id=${config.API_ID}&app_key=${config.API_KEY}&results_per_page=20&what=${search}&where=${location}&content-type=application/json`;
