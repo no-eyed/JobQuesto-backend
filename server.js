@@ -1,8 +1,8 @@
 const createServer = require('http').createServer;
 const url = require('url');
 const axios = require('axios');
-const chalk = require('chalk');
 const config = require('./config');
+require('dotenv').config();
 
 const headers = {
     'Content-Type': 'application/json',
@@ -16,9 +16,9 @@ const server = createServer((req, res) => {
     const requestURL = url.parse(req.url);
 
     const decodedParams = decodeParams(new URLSearchParams(requestURL.path));
-    const { search, location, country = 'in'} = decodedParams;
+    const { search, location, country = 'in', category} = decodedParams;
 
-    const targetURL = `${config.BASE_URL}/${country.toLowerCase()}/${config.BASE_PARAMS}&app_id=${config.API_ID}&app_key=${config.API_KEY}&results_per_page=20&what=${search}&where=${location}&content-type=application/json`;
+    const targetURL = `${config.BASE_URL}/${country.toLowerCase()}/${config.BASE_PARAMS}&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&results_per_page=20&what=${search}&where=${location}&category=${category}&content-type=application/json`;
     
     if(req.method === 'GET') {
         axios.get(targetURL)
